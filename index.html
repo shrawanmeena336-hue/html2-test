@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online MCQ Test</title>
+<style>
+body { font-family: Arial; padding: 20px; }
+</style>
+</head>
+<body>
+
+<h2>Online MCQ Test</h2>
+
+<form id="quizForm">
+
+<p>1. HTML ka full form kya hai?</p>
+<input type="radio" name="q1" value="A"> Hyper Text Markup Language<br>
+<input type="radio" name="q1" value="B"> High Task Machine Language<br><br>
+
+<p>2. CSS kis ke liye use hota hai?</p>
+<input type="radio" name="q2" value="A"> Styling<br>
+<input type="radio" name="q2" value="B"> Database<br><br>
+
+<input id="name" placeholder="Enter your name" required>
+
+<br><br>
+
+<button onclick="submitQuiz(); return false;">Submit</button>
+
+</form>
+
+<div id="result"></div>
+
+<script>
+function submitQuiz() {
+    let score = 0;
+
+    if (document.querySelector('input[name="q1"]:checked')?.value === "A") score++;
+    if (document.querySelector('input[name="q2"]:checked')?.value === "A") score++;
+
+    let name = document.getElementById("name").value;
+
+    document.getElementById("result").innerHTML =
+        "<h3>Score: " + score + "/2</h3>";
+
+    // SheetDB API URL Yahan Lagaye
+    fetch("YOUR_SHEETDB_URL", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name: name,
+            score: score,
+            time: new Date().toLocaleString()
+        })
+    });
+}
+</script>
+
+</body>
+</html>
